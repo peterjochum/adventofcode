@@ -94,7 +94,7 @@ func GetAdapterListFromFile(fileName string) []Adapter {
 }
 
 // CountOptionalAdapters counts how many adapters could be skipped (WIP:)
-func CountOptionalAdapters(adapters []Adapter) int {
+func CountOptionalAdapters(adapters []Adapter, distance int) int {
 	optional := 0
 	outlet := Adapter{0, false}
 	deviceJoltage := adapters[len(adapters)-1].Joltage + 3
@@ -107,8 +107,8 @@ func CountOptionalAdapters(adapters []Adapter) int {
 	completeAdapters = append(completeAdapters, device)
 
 	// Check for every adapter if the previous and next are compatible
-	for i := 1; i < len(adapters)-1; i++ {
-		if completeAdapters[i-1].IsCompatibleWith(completeAdapters[i+1]) {
+	for i := distance; i < len(adapters)-1; i++ {
+		if completeAdapters[i-distance].IsCompatibleWith(completeAdapters[i+1]) {
 			// I am optional
 			optional++
 		}

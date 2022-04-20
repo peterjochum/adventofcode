@@ -13,6 +13,7 @@ type AdapterTestCase struct {
 	adapters    []Adapter
 	differences [4]int
 	optional    int
+	optional2   int
 }
 
 func TestAdapter_IsCompatibleWith(t *testing.T) {
@@ -71,15 +72,18 @@ func TestGetDifferences(t *testing.T) {
 
 func getAdapterTestCases() []AdapterTestCase {
 	testAdapters := GetAdaptersFromJoltages([]int{1, 4, 7})
+	// (0), 1, 2, 3 (5)
+	test2OptionalAdapters := GetAdaptersFromJoltages([]int{1, 2, 3, 4})
 	exampleAdapters := GetAdapterListFromFile("example_adapters.txt")
 	example2Adapters := GetAdapterListFromFile("example_adapters_2.txt")
 	puzzleInputAdapters := GetAdapterListFromFile("adapters.txt")
 
 	differentCases := []AdapterTestCase{
-		{"Test", testAdapters, [...]int{0, 1, 0, 3}, 0},
-		{"Example 1", exampleAdapters, [...]int{0, 7, 0, 5}, 3},
-		{"Example 2", example2Adapters, [...]int{0, 22, 0, 10}, 14},
-		{"Puzzle", puzzleInputAdapters, [...]int{0, 69, 0, 34}, 44},
+		{"Test", testAdapters, [...]int{0, 1, 0, 3}, 0, 0},
+		{"Test2Optional", test2OptionalAdapters, [...]int{0, 4, 0, 1}, 2, 2},
+		{"Example 1", exampleAdapters, [...]int{0, 7, 0, 5}, 3, 0},
+		{"Example 2", example2Adapters, [...]int{0, 22, 0, 10}, 14, 0},
+		{"Puzzle", puzzleInputAdapters, [...]int{0, 69, 0, 34}, 44, 0},
 	}
 	return differentCases
 }
@@ -87,8 +91,13 @@ func getAdapterTestCases() []AdapterTestCase {
 func TestCountOptionalAdapters(t *testing.T) {
 	for _, atc := range getAdapterTestCases() {
 		t.Run(fmt.Sprintf("Optional adapters in %s", atc.name), func(t *testing.T) {
-			actualOptional := CountOptionalAdapters(atc.adapters)
-			assert.Equal(t, actualOptional, atc.optional)
+			actualOptional := CountOptionalAdapters(atc.adapters, 1)
+			assert.Equal(t, atc.optional, actualOptional)
+		})
+
+		t.Run(fmt.Sprintf("Optional (dist 2) adapters in %s", atc.name), func(t *testing.T) {
+			actualOptional := CountOptionalAdapters(atc.adapters, 2)
+			assert.Equal(t, atc.optional, actualOptional)
 		})
 	}
 }

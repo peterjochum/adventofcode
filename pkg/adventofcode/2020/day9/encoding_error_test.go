@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/peterjochum/adventofcode2020/pkg/adventofcode/utility"
+	"github.com/peterjochum/adventofcode/pkg/adventofcode/utility"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -153,7 +153,7 @@ func NewInstructionListFromFile(fileName string) InstructionList {
 
 // NewInstructionFromString parses an Instruction from a string
 func NewInstructionFromString(instruction string) (*Instruction, error) {
-	re := regexp.MustCompile(`(acc|jmp|nop) (\+|-)(\d+)`)
+	re := regexp.MustCompile(`(acc|jmp|nop) ([+-])(\d+)`)
 	parts := re.FindStringSubmatch(instruction)
 	if parts == nil {
 		return nil, fmt.Errorf("could not parse instruction: %s", instruction)

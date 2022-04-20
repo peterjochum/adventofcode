@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/peterjochum/adventofcode2020/pkg/adventofcode/utility"
+	"github.com/peterjochum/adventofcode/pkg/adventofcode/utility"
 )
 
 // Adapter charges your devices in no time

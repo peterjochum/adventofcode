@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/peterjochum/adventofcode2020/pkg/adventofcode/utility"
+	"github.com/peterjochum/adventofcode/pkg/adventofcode/utility"
 )
 
 // Xmas interface to add preambles and numbers
